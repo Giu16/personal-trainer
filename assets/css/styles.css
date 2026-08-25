@@ -461,6 +461,8 @@ footer{
    Responsivo
    ========================================================================== */
 @media(max-width:860px){
+  /* mobile: hero deixa de ser sticky → rolagem natural, corrige o "descola" no iOS/Chrome */
+  .hero{position:relative}
   /* hero: foto vira fundo full-bleed, texto por cima (cabe em 1 tela) */
   .hero-grid{display:block}
   .hero-grid > div{position:relative;z-index:2}
@@ -507,7 +509,7 @@ footer{
 /* ---------- capricho: hero recua (encolhe + escurece) enquanto é coberto ----------
    scroll-driven; só ativa onde há suporte. reduced-motion desliga via regra global. */
 @supports (animation-timeline: scroll()){
-  @media(prefers-reduced-motion:no-preference){
+  @media(min-width:861px) and (prefers-reduced-motion:no-preference){
     .hero{
       animation:heroRecede linear both;
       animation-timeline:scroll(root block);

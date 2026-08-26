@@ -4,7 +4,7 @@
 
 /* === CONFIG: troque só estas linhas por cliente ========================== */
 const WHATSAPP = "5567998397624";                 // DDI+DDD+número, só dígitos
-const MSG = "Olá Paulo! Vim pelo site e quero saber mais sobre o acompanhamento.";
+const MSG = "Olá! Vi o modelo de site para personal trainer no seu portfólio e me interessei. Gostaria de saber como funciona pra criar um site assim pro meu negócio.";
 /* ========================================================================= */
 
 /* WhatsApp: monta o link e rastreia a origem do clique (data-cta).

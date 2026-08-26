@@ -461,9 +461,10 @@ footer{
    Responsivo
    ========================================================================== */
 @media(max-width:860px){
-  /* mobile: hero continua sticky (efeito de cobrir) — o "descola" vinha da animação
-     scroll-driven, que fica só no desktop (@supports abaixo). sticky sozinho não trava o scroll. */
-  .hero{position:sticky;top:0}
+  /* mobile: hero NÃO é sticky → rolagem lisa. o sticky no iOS/Chrome mobile treme
+     ("descola de um lado pro outro") por causa da address bar dinâmica + repaint da
+     camada fixa. o efeito de cobrir fica só no desktop, onde é estável. */
+  .hero{position:relative}
   /* hero: foto vira fundo full-bleed, texto por cima (cabe em 1 tela) */
   .hero-grid{display:block}
   .hero-grid > div{position:relative;z-index:2}

@@ -91,6 +91,19 @@ if (track && !prefersReducedMotion && "IntersectionObserver" in window) {
   trackObserver.observe(track);
 }
 
+/* mobile: a seção "Sobre" desliza suave e cobre o fim do hero (sem sticky → não treme).
+   Só transform, gatilhada por IntersectionObserver. Sem JS/reduced-motion, #sobre aparece normal. */
+const sobre = document.getElementById("sobre");
+if (sobre && !prefersReducedMotion && "IntersectionObserver" in window && matchMedia("(max-width:860px)").matches) {
+  document.documentElement.classList.add("js-cover");
+  const coverObserver = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { sobre.classList.add("is-covered"); coverObserver.disconnect(); }
+    }
+  }, { threshold: 0, rootMargin: "0px 0px -18% 0px" });
+  coverObserver.observe(sobre);
+}
+
 /* FAQ: accordion acessível (só uma resposta aberta por vez) */
 const faqItems = document.querySelectorAll(".faq-item");
 for (const item of faqItems) {

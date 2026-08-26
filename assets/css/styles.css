@@ -461,11 +461,14 @@ footer{
    Responsivo
    ========================================================================== */
 @media(max-width:860px){
-  /* mobile: hero SEMPRE relative (definitivo). o efeito de cobrir exige sticky/fixed,
-     que treme no iOS/Chrome mobile ("descola de um lado pro outro") por causa da address
-     bar dinâmica — testado 3x, nem com hardening (translateZ/backface) para de tremer.
-     usabilidade do scroll > efeito. o efeito de cobrir fica só no desktop. NÃO reativar. */
-  .hero{position:relative}
+  /* mobile: hero relative (sticky treme no iOS/Chrome — testado 3x, nem com hardening).
+     efeito de cobrir feito SEM fixar nada: #sobre sobe por cima do fim do hero via margin
+     negativa + z-index e desliza suave ao entrar (só transform → não trava). o padding-bottom
+     cria uma zona morta pra #sobre cobrir sem tapar o texto/stats do hero. */
+  .hero{position:relative;padding-bottom:clamp(56px,12vh,120px)}
+  #sobre{position:relative;z-index:2;margin-top:calc(-1 * clamp(48px,10vh,96px))}
+  .js-cover #sobre{transform:translateY(46px);transition:transform .85s cubic-bezier(.16,1,.3,1);will-change:transform}
+  .js-cover #sobre.is-covered{transform:none}
   /* hero: foto vira fundo full-bleed, texto por cima (cabe em 1 tela) */
   .hero-grid{display:block}
   .hero-grid > div{position:relative;z-index:2}

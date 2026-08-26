@@ -461,15 +461,11 @@ footer{
    Responsivo
    ========================================================================== */
 @media(max-width:860px){
-  /* mobile: hero sticky (efeito de cobrir) + estabilizadores de camada anti-jitter.
-     translateZ(0) + backface-visibility isolam a composição no iOS/Chrome, evitando o
-     "descola de um lado pro outro" que a address bar dinâmica causava. a animação
-     scroll-driven (transform/filter no scroll) segue desktop-only no @supports abaixo. */
-  .hero{
-    position:sticky;top:0;
-    -webkit-backface-visibility:hidden;backface-visibility:hidden;
-    -webkit-transform:translateZ(0);transform:translateZ(0);
-  }
+  /* mobile: hero SEMPRE relative (definitivo). o efeito de cobrir exige sticky/fixed,
+     que treme no iOS/Chrome mobile ("descola de um lado pro outro") por causa da address
+     bar dinâmica — testado 3x, nem com hardening (translateZ/backface) para de tremer.
+     usabilidade do scroll > efeito. o efeito de cobrir fica só no desktop. NÃO reativar. */
+  .hero{position:relative}
   /* hero: foto vira fundo full-bleed, texto por cima (cabe em 1 tela) */
   .hero-grid{display:block}
   .hero-grid > div{position:relative;z-index:2}

@@ -461,8 +461,9 @@ footer{
    Responsivo
    ========================================================================== */
 @media(max-width:860px){
-  /* mobile: hero deixa de ser sticky → rolagem natural, corrige o "descola" no iOS/Chrome */
-  .hero{position:relative}
+  /* mobile: hero continua sticky (efeito de cobrir) — o "descola" vinha da animação
+     scroll-driven, que fica só no desktop (@supports abaixo). sticky sozinho não trava o scroll. */
+  .hero{position:sticky;top:0}
   /* hero: foto vira fundo full-bleed, texto por cima (cabe em 1 tela) */
   .hero-grid{display:block}
   .hero-grid > div{position:relative;z-index:2}

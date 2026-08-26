@@ -112,7 +112,7 @@ header .btn{padding:11px 20px;font-size:14px}
   min-height:100svh;
   display:flex;flex-direction:column;justify-content:center;
   padding-top:clamp(120px,20vw,180px);
-  overflow:hidden;
+  overflow:clip;
 }
 /* a seção seguinte sobe por cima do hero; o resto rola normal.
    fundo opaco em todas pra cobrir o hero sticky (surface/ID mantêm o próprio fundo). */
@@ -461,10 +461,15 @@ footer{
    Responsivo
    ========================================================================== */
 @media(max-width:860px){
-  /* mobile: hero NÃO é sticky → rolagem lisa. o sticky no iOS/Chrome mobile treme
-     ("descola de um lado pro outro") por causa da address bar dinâmica + repaint da
-     camada fixa. o efeito de cobrir fica só no desktop, onde é estável. */
-  .hero{position:relative}
+  /* mobile: hero sticky (efeito de cobrir) + estabilizadores de camada anti-jitter.
+     translateZ(0) + backface-visibility isolam a composição no iOS/Chrome, evitando o
+     "descola de um lado pro outro" que a address bar dinâmica causava. a animação
+     scroll-driven (transform/filter no scroll) segue desktop-only no @supports abaixo. */
+  .hero{
+    position:sticky;top:0;
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
+    -webkit-transform:translateZ(0);transform:translateZ(0);
+  }
   /* hero: foto vira fundo full-bleed, texto por cima (cabe em 1 tela) */
   .hero-grid{display:block}
   .hero-grid > div{position:relative;z-index:2}

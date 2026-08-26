@@ -1,4 +1,4 @@
-# Wesley Santana · Personal Trainer
+# Paulo Andrade · Personal Trainer
 
 Landing page estática (HTML + CSS + JS, sem build). Foco em conversão para captação de alunos via WhatsApp.
 
@@ -20,7 +20,7 @@ personal trainer/
 |----------------------|-------------------------------------------------------------|
 | WhatsApp             | `assets/js/main.js` → `const WHATSAPP` (só dígitos: DDI+DDD+número) |
 | Mensagem inicial     | `assets/js/main.js` → `const MSG`                           |
-| Nome / cidade / CREF | `index.html` (buscar "Wesley", "Nova Andradina", "000000")  |
+| Nome / cidade / CREF | `index.html` (buscar "Paulo Andrade", "Nova Andradina", "000000")  |
 | Preços dos planos    | `index.html` → seção `#planos`                              |
 | Depoimentos          | `index.html` → seção `#depoimentos`                         |
 | FAQ                  | `index.html` → seção `#faq`                                 |
@@ -32,7 +32,7 @@ personal trainer/
 Já estão fiadas em `assets/img/` (stand-ins genéricos royalty-free do Unsplash):
 `hero.jpg` (4:5), `retrato.jpg` (1:1) e `aluno-1..3.jpg` (3:4).
 
-- Trocar pelas fotos reais do Wesley (hero/retrato) mantendo o mesmo nome de arquivo.
+- Trocar pelas fotos reais do Paulo (hero/retrato) mantendo o mesmo nome de arquivo.
 - **`aluno-1..3.jpg` são fotos genéricas de treino** na seção "Resultados reais" — substituir pelos antes/depois reais de alunos (com autorização) antes de publicar.
 - Preview de compartilhamento (WhatsApp/Instagram): colocar `assets/img/og-cover.jpg` (1200×630) e conferir a tag `og:image`.
 

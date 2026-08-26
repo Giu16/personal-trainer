@@ -1,10 +1,10 @@
 /* ==========================================================================
-   Wesley Santana · Personal Trainer — interações
+   Paulo Andrade · Personal Trainer — interações
    ========================================================================== */
 
 /* === CONFIG: troque só estas linhas por cliente ========================== */
-const WHATSAPP = "5567998583119";                 // DDI+DDD+número, só dígitos
-const MSG = "Olá Wesley! Vim pelo site e quero saber mais sobre o acompanhamento.";
+const WHATSAPP = "5567998397624";                 // DDI+DDD+número, só dígitos
+const MSG = "Olá Paulo! Vim pelo site e quero saber mais sobre o acompanhamento.";
 /* ========================================================================= */
 
 /* WhatsApp: monta o link e rastreia a origem do clique (data-cta).

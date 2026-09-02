@@ -100,21 +100,25 @@ if (track && !prefersReducedMotion && "IntersectionObserver" in window) {
 
 /* FAQ: accordion acessível (só uma resposta aberta por vez) */
 const faqItems = document.querySelectorAll(".faq-item");
+/* max-height:0 esconde só visualmente — o leitor de tela leria as 5 respostas sempre.
+   aria-hidden tira a fechada da árvore de acessibilidade sem mexer na animação. */
+const fecharFaq = () => {
+  for (const item of faqItems) {
+    const answer = item.querySelector(".faq-a");
+    item.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+    answer.style.maxHeight = null;
+    answer.setAttribute("aria-hidden", "true");
+    item.classList.remove("is-open");
+  }
+};
+fecharFaq();
+
 for (const item of faqItems) {
   const btn = item.querySelector(".faq-q");
   const answer = item.querySelector(".faq-a");
-  /* max-height:0 esconde só visualmente — o leitor de tela leria as 5 respostas sempre.
-     aria-hidden tira a fechada da árvore de acessibilidade sem mexer na animação. */
-  answer.setAttribute("aria-hidden", "true");
   btn.addEventListener("click", () => {
     const isOpen = btn.getAttribute("aria-expanded") === "true";
-    for (const other of faqItems) {
-      const otherAnswer = other.querySelector(".faq-a");
-      other.querySelector(".faq-q").setAttribute("aria-expanded", "false");
-      otherAnswer.style.maxHeight = null;
-      otherAnswer.setAttribute("aria-hidden", "true");
-      other.classList.remove("is-open");
-    }
+    fecharFaq();
     if (!isOpen) {
       btn.setAttribute("aria-expanded", "true");
       answer.style.maxHeight = `${answer.scrollHeight}px`;
@@ -129,6 +133,14 @@ addEventListener("resize", () => {
   const aberta = document.querySelector(".faq-item.is-open .faq-a");
   if (aberta) aberta.style.maxHeight = `${aberta.scrollHeight}px`;
 }, { passive: true });
+
+/* sair da seção fecha a resposta aberta — ao voltar no FAQ ele está limpo de novo */
+const faqSection = document.getElementById("faq");
+if (faqSection && "IntersectionObserver" in window) {
+  new IntersectionObserver((entries) => {
+    for (const e of entries) if (!e.isIntersecting) fecharFaq();
+  }, { threshold: 0 }).observe(faqSection);
+}
 
 /* Textura de ruído WebGL atrás do hero — só desktop, sutil, ember da marca, gatilhada.
    Pausa quando o hero sai da tela ou a aba fica oculta. Fallback: sem WebGL, hero fica no fundo escuro. */

@@ -103,20 +103,32 @@ const faqItems = document.querySelectorAll(".faq-item");
 for (const item of faqItems) {
   const btn = item.querySelector(".faq-q");
   const answer = item.querySelector(".faq-a");
+  /* max-height:0 esconde só visualmente — o leitor de tela leria as 5 respostas sempre.
+     aria-hidden tira a fechada da árvore de acessibilidade sem mexer na animação. */
+  answer.setAttribute("aria-hidden", "true");
   btn.addEventListener("click", () => {
     const isOpen = btn.getAttribute("aria-expanded") === "true";
     for (const other of faqItems) {
+      const otherAnswer = other.querySelector(".faq-a");
       other.querySelector(".faq-q").setAttribute("aria-expanded", "false");
-      other.querySelector(".faq-a").style.maxHeight = null;
+      otherAnswer.style.maxHeight = null;
+      otherAnswer.setAttribute("aria-hidden", "true");
       other.classList.remove("is-open");
     }
     if (!isOpen) {
       btn.setAttribute("aria-expanded", "true");
       answer.style.maxHeight = `${answer.scrollHeight}px`;
+      answer.setAttribute("aria-hidden", "false");
       item.classList.add("is-open");
     }
   });
 }
+/* a altura acima é gravada em px no momento do clique. girar o celular (ou redimensionar
+   a janela) reflui o texto e a resposta aberta passaria a cortar o final — recalcula. */
+addEventListener("resize", () => {
+  const aberta = document.querySelector(".faq-item.is-open .faq-a");
+  if (aberta) aberta.style.maxHeight = `${aberta.scrollHeight}px`;
+}, { passive: true });
 
 /* Textura de ruído WebGL atrás do hero — só desktop, sutil, ember da marca, gatilhada.
    Pausa quando o hero sai da tela ou a aba fica oculta. Fallback: sem WebGL, hero fica no fundo escuro. */
@@ -201,7 +213,7 @@ for (const item of faqItems) {
   resize();
   new ResizeObserver(resize).observe(hero);
 
-  let raf = 0, running = false;
+  let raf = 0, running = false, inView = false;
   const render = (t) => {
     gl.uniform2f(uRes, canvas.width, canvas.height);
     gl.uniform1f(uTime, t * 0.001 * 0.5);
@@ -215,7 +227,11 @@ for (const item of faqItems) {
   const stop = () => { running = false; cancelAnimationFrame(raf); };
 
   new IntersectionObserver((entries) => {
-    for (const e of entries) e.isIntersecting ? start() : stop();
+    for (const e of entries) { inView = e.isIntersecting; inView ? start() : stop(); }
   }, { threshold: 0 }).observe(hero);
-  document.addEventListener("visibilitychange", () => { document.hidden ? stop() : start(); });
+  /* voltar pra aba só religa se o hero ainda estiver na tela — senão o shader
+     ficaria renderizando a 60fps com o hero fora de vista, gastando GPU à toa. */
+  document.addEventListener("visibilitychange", () => {
+    document.hidden || !inView ? stop() : start();
+  });
 })();

@@ -87,7 +87,7 @@ if (track && !prefersReducedMotion && "IntersectionObserver" in window) {
     for (const e of entries) {
       if (e.isIntersecting) { track.classList.add("is-charged"); trackObserver.disconnect(); }
     }
-  }, { threshold: .35 });
+  }, { threshold: .1, rootMargin: "0px 0px -12% 0px" });
   trackObserver.observe(track);
 }
 

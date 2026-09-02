@@ -8,11 +8,18 @@ const MSG = "Olá! Vi o modelo de site para personal trainer no seu portfólio e
 /* ========================================================================= */
 
 /* WhatsApp: monta o link e rastreia a origem do clique (data-cta).
-   O evento vai para dataLayer/gtag se existirem — pronto p/ GA4 ou Meta Pixel. */
-const baseHref = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(MSG)}`;
-
+   O evento vai para dataLayer/gtag se existirem — pronto p/ GA4 ou Meta Pixel.
+   Botão dentro de um .plan manda mensagem própria, com nome e preço lidos do
+   próprio card: mudar o preço no HTML já atualiza a mensagem, sem tocar aqui. */
 for (const link of document.querySelectorAll(".wa-link")) {
-  link.href = baseHref;
+  const plano = link.closest(".plan");
+  const nome = plano?.querySelector(".tag")?.textContent.trim();
+  const preco = plano?.querySelector(".price")?.textContent.replace(/\s+/g, " ").replace(/\s*\/\s*/g, "/").trim();
+  const texto = nome && preco
+    ? `Olá! Me interessei pelo plano ${nome} (${preco}) e gostaria de saber como funciona.`
+    : MSG;
+
+  link.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
   link.target = "_blank";
   link.rel = "noopener";
   link.addEventListener("click", () => {

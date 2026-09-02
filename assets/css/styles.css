@@ -129,12 +129,6 @@ main > section:not(.hero)::before{
     radial-gradient(60% 50% at 14% 8%,  rgba(255,90,44,.14),  transparent 60%),
     radial-gradient(52% 46% at 88% 90%, rgba(255,90,44,.11),  transparent 58%),
     radial-gradient(42% 40% at 72% 28%, rgba(255,64,18,.075), transparent 62%);
-  animation:emberDrift 24s ease-in-out infinite alternate;
-  will-change:transform,opacity;
-}
-@keyframes emberDrift{
-  from{transform:translate3d(0,0,0) scale(1);opacity:.8}
-  to{transform:translate3d(0,-3%,0) scale(1.08);opacity:1}
 }
 /* shader WebGL (ruído ember) atrás do hero — só no desktop (no mobile a foto é full-bleed) */
 @media(min-width:861px){

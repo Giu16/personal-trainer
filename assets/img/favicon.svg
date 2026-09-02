@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0F1013"/>
+  <text x="31" y="44" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#F4F2ED" text-anchor="middle" letter-spacing="-1">PA</text>
+  <circle cx="54" cy="42" r="4.5" fill="#FF5A2C"/>
+</svg>
